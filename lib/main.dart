@@ -9,6 +9,8 @@ void main() {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var cardOrder = 1;
+
     return MaterialApp(
       home: Scaffold(
         backgroundColor: const Color(0xFF181818),
@@ -111,94 +113,29 @@ class App extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                // Container(
-                //   clipBehavior: Clip.hardEdge,
-                //   decoration: BoxDecoration(
-                //     color: const Color(0xFF1F2123),
-                //     borderRadius: BorderRadius.circular(20),
-                //   ),
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(30),
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: [
-                //         Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: [
-                //             const Text(
-                //               'Euro',
-                //               style: TextStyle(
-                //                 color: Colors.white,
-                //                 fontSize: 32,
-                //                 fontWeight: FontWeight.w600,
-                //               ),
-                //             ),
-                //             const SizedBox(
-                //               height: 10,
-                //             ),
-                //             Row(
-                //               children: [
-                //                 const Text(
-                //                   '6 428 ',
-                //                   style: TextStyle(
-                //                     color: Colors.white,
-                //                     fontSize: 20,
-                //                   ),
-                //                 ),
-                //                 const SizedBox(
-                //                   width: 5,
-                //                 ),
-                //                 Text(
-                //                   'EUR',
-                //                   style: TextStyle(
-                //                     color: Colors.white.withOpacity(0.8),
-                //                   ),
-                //                 ),
-                //               ],
-                //             )
-                //           ],
-                //         ),
-                //         Transform.scale(
-                //           scale: 2.2,
-                //           child: Transform.translate(
-                //             offset: const Offset(-5, 12),
-                //             child: const Icon(
-                //               Icons.euro_rounded,
-                //               color: Colors.white,
-                //               size: 88,
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //   ),
-                // ),
-                const CurrencyCard(
+                CurrencyCard(
                   name: 'Euro',
                   code: 'EUR',
                   amount: '6 428',
                   icon: Icons.euro_rounded,
                   isInverted: false,
+                  order: cardOrder++,
                 ),
-                Transform.translate(
-                  offset: const Offset(0, -20),
-                  child: const CurrencyCard(
-                    name: 'Bitcoin',
-                    code: 'BTC',
-                    amount: '9 222',
-                    icon: Icons.currency_bitcoin,
-                    isInverted: true,
-                  ),
+                CurrencyCard(
+                  name: 'Bitcoin',
+                  code: 'BTC',
+                  amount: '9 222',
+                  icon: Icons.currency_bitcoin,
+                  isInverted: true,
+                  order: cardOrder++,
                 ),
-                Transform.translate(
-                  offset: const Offset(0, -40),
-                  child: const CurrencyCard(
-                    name: 'Dollor',
-                    code: 'USD',
-                    amount: '6 428',
-                    icon: Icons.attach_money_outlined,
-                    isInverted: false,
-                  ),
+                CurrencyCard(
+                  name: 'Dollor',
+                  code: 'USD',
+                  amount: '6 428',
+                  icon: Icons.attach_money_outlined,
+                  isInverted: false,
+                  order: cardOrder++,
                 ),
               ],
             ),
