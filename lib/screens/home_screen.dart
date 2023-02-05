@@ -10,14 +10,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int totalSeconds = 1500;
+  static const twentyFiveMinutes = 1500;
+  int totalSeconds = twentyFiveMinutes;
   bool isRunning = false;
+  int totalPomodoros = 0;
   late Timer timer; //late는 당장 property를 초기화하지 않는다.
 
   void onTick(Timer timer) {
-    setState(() {
-      totalSeconds--;
-    });
+    if (totalSeconds == 0) {
+      setState(() {
+        totalPomodoros++;
+        isRunning = false;
+        totalSeconds = twentyFiveMinutes;
+      });
+      timer.cancel();
+    } else {
+      setState(() {
+        totalSeconds--;
+      });
+    }
   }
 
   void onStartPressed() {
@@ -42,6 +53,19 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  String format(int seconds) {
+    var duration = Duration(
+      seconds: seconds,
+    );
+    // print(duration); //길게 알려줌 (0:21:21.000000)
+    // print(duration.inMinutes); //소수점도 없고 그냥 대충 몇분인지 알려주는듯
+    // print(duration.inSeconds); //1308 처럼 값이 나옴
+    // print(duration.toString().split('.').first);
+    // print(duration.toString().split('.').first.split(':'));        //I/flutter ( 3146): [0, 19, 28]
+    // print(duration.toString().split('.').first.substring(2, 7));   //I/flutter ( 3146): 19:22
+    return duration.toString().split('.').first.substring(2, 7);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Text(
-                '$totalSeconds',
+                format(totalSeconds),
                 style: TextStyle(
                   color: Theme.of(context).cardColor,
                   fontSize: 89,
@@ -105,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Text(
-                          '0',
+                          '$totalPomodoros',
                           style: TextStyle(
                             fontSize: 58,
                             fontWeight: FontWeight.w600,
