@@ -11,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int totalSeconds = 1500;
+  bool isRunning = false;
   late Timer timer; //late는 당장 property를 초기화하지 않는다.
 
   void onTick(Timer timer) {
@@ -27,6 +28,18 @@ class _HomeScreenState extends State<HomeScreen> {
     ); //periodic은 주기적으로 함수를 실행한다.
     //함수에 괄호는 넣지 않는다. 그것은 함수를 지금 실행하는것을 의미한다(?)
     //함수는 timer 스스로를 인자로 가지고 간다.
+
+    setState(() {
+      isRunning = true;
+    });
+  }
+
+  void onPausePressed() {
+    timer.cancel();
+
+    setState(() {
+      isRunning = false;
+    });
   }
 
   @override
@@ -55,8 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: IconButton(
                 iconSize: 120,
                 color: Theme.of(context).cardColor,
-                onPressed: onStartPressed,
-                icon: const Icon(Icons.play_circle_outline),
+                onPressed: isRunning ? onPausePressed : onStartPressed,
+                icon: isRunning
+                    ? const Icon(Icons.pause_circle_outline_outlined)
+                    : const Icon(Icons.play_circle_outline),
               ),
             ),
           ),
