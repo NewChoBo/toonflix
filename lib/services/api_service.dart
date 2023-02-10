@@ -4,11 +4,12 @@ import 'package:http/http.dart' as http;
 import 'package:toonflix/models/webtoon_model.dart';
 
 class ApiService {
-  final String baseUrl = "https://webtoon-crawler.nomadcoders.workers.dev";
-  final String today = "today";
+  static const String baseUrl =
+      "https://webtoon-crawler.nomadcoders.workers.dev";
+  static const String today = "today";
 
   //API가 반환한 JSON을 콘솔에 프린트?
-  Future<List<WebtoonModel>> getTodayToons() async {
+  static Future<List<WebtoonModel>> getTodayToons() async {
     //asynchronous function : 비동기 함수
     //함수를 async로
 
@@ -26,9 +27,8 @@ class ApiService {
 
       final List<dynamic> webtoons = jsonDecode(response.body); //리턴값은 dynamic
       for (var webtoon in webtoons) {
-        // final toon = WebtoonModel.fromJson(webtoon);
-        // print(toon.title);
-        webtoonInstances.add(WebtoonModel.fromJson(webtoon));
+        final instance = WebtoonModel.fromJson(webtoon);
+        webtoonInstances.add(instance);
       }
       return webtoonInstances;
     }
