@@ -117,7 +117,16 @@ class _DetailScreenState extends State<DetailScreen> {
                             margin: const EdgeInsets.only(bottom: 5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Colors.green.shade400,
+                              border: Border.all(color: Colors.green),
+                              // color: Colors.green.shade400,
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 7,
+                                  offset: const Offset(5, 5),
+                                  color: Colors.black.withOpacity(0.2),
+                                ),
+                              ],
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -131,13 +140,15 @@ class _DetailScreenState extends State<DetailScreen> {
                                   Text(
                                     episode.title,
                                     style: const TextStyle(
-                                      color: Colors.white,
+                                      // color: Colors.white,
+                                      color: Colors.green,
                                       fontSize: 16,
                                     ),
                                   ),
                                   const Icon(
                                     Icons.chevron_right_rounded,
-                                    color: Colors.white,
+                                    // color: Colors.white,
+                                    color: Colors.green,
                                   ),
                                 ],
                               ),
